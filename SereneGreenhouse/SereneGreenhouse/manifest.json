@@ -1,0 +1,11 @@
+﻿{
+  "Name": "SereneGreenhouse",
+  "Author": "PeacefulEnd",
+  "Version": "REPLACE_ME_WITH_VERSION",
+  "Description": "A greenhouse mod with a touch of Junimos.",
+  "UniqueID": "PeacefulEnd.SereneGreenhouse",
+  "EntryDll": "SereneGreenhouse.dll",
+  "MinimumApiVersion": "3.0.0",
+  "UpdateKeys": [ "Nexus:????" ],
+  "Dependencies": []
+}
