@@ -1,0 +1,12 @@
+{
+  "Name": "Serene Greenhouse",
+  "Author": "PeacefulEnd",
+  "Version": "1.0.0",
+  "Description": "A remake of the greenhouse, with a touch of Junimo.",
+  "UniqueID": "PeacefulEnd.SereneGreenhouse.CP",
+  "MinimumApiVersion": "3.0.0",
+  "UpdateKeys": [],
+  "ContentPackFor": {
+    "UniqueID": "Pathoschild.ContentPatcher"
+  }
+}
