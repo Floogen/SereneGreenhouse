@@ -27,6 +27,20 @@ namespace SereneGreenhouse
             monitor = Monitor;
             modHelper = helper;
 
+            // Setup our ModData keys
+            offeringsStoredInWaterHutKey = $"{this.ModManifest.UniqueID}/offerings-stored-in-water-hut";
+
+            // Load our Harmony patches
+            try
+            {
+                var harmony = HarmonyInstance.Create(this.ModManifest.UniqueID);
+                harmony.PatchAll(Assembly.GetExecutingAssembly());
+            }
+            catch (Exception e)
+            {
+                Monitor.Log($"Issue with Harmony patch: {e}", LogLevel.Error);
+                return;
+            }
 
             // Hook into the player warping
             helper.Events.Player.Warped += this.OnWarped;
