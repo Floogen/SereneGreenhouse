@@ -5,6 +5,7 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.BellsAndWhistles;
+using StardewValley.Characters;
 using StardewValley.TerrainFeatures;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,9 @@ namespace SereneGreenhouse
             // Hook into GameLaunched event
             helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
+            // Hook into the Warped event
+            helper.Events.Player.Warped += OnWarped;
+
             // Hook into the DayStarted event
             helper.Events.GameLoop.DayStarted += OnDayStarted;
         }
@@ -84,6 +88,20 @@ namespace SereneGreenhouse
                 }
                 return new[] { "SereneGreenhouse" };
             });
+        }
+
+        private void OnWarped(object sender, WarpedEventArgs e)
+        {
+            if (e.OldLocation.NameOrUniqueName == "Greenhouse")
+            {
+                for (int i = e.OldLocation.characters.Count - 1; i >= 0; i--)
+                {
+                    if (e.OldLocation.characters[i] is Junimo)
+                    {
+                        e.OldLocation.characters.RemoveAt(i);
+                    }
+                }
+            }
         }
 
         private void OnDayStarted(object sender, DayStartedEventArgs e)
