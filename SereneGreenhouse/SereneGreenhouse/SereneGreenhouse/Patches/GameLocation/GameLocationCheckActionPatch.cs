@@ -52,12 +52,10 @@ namespace SereneGreenhouse.Patches.GameLocation
                         else if (!Game1.MasterPlayer.mailReceived.Contains("SG_Treehouse_Expansion_2"))
                         {
                             Game1.drawObjectDialogue("An odd tree that seems to have a door fused to it.#From behind the door you can hear a tiny voice...#Gibe 100 Sweet Gem Berries, we shape forest for more plants!");
-                            //Game1.MasterPlayer.mailReceived.Add("SG_Treehouse_Expansion_2");
                         }
                         else if (!Game1.MasterPlayer.mailReceived.Contains("SG_Treehouse_Expansion_3"))
                         {
                             Game1.drawObjectDialogue("An odd tree that seems to have a door fused to it.#From behind the door you can hear a tiny voice...#Gibe 100 Ancient Fruit, we shape forest for more plants!");
-                            //Game1.MasterPlayer.mailReceived.Add("SG_Treehouse_Expansion_3");
                         }
                         else
                         {
