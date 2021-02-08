@@ -7,6 +7,7 @@ using StardewValley.Menus;
 using System.Linq;
 using xTile.Dimensions;
 using xTile.Tiles;
+using System.Collections.Generic;
 
 namespace SereneGreenhouse.Patches
 {
@@ -14,6 +15,12 @@ namespace SereneGreenhouse.Patches
     public class GameLocationCheckActionPatch
     {
         private static IMonitor monitor = ModEntry.monitor;
+        private static readonly string acceptedOfferingMessage = "For us? Thank you, thank you!#Come back tomorrow, forest will change!";
+        private static List<Response> offeringResponses = new List<Response>()
+        {
+            new Response("Offering_Yes", "Yes"),
+            new Response("Offering_No", "No")
+        };
 
         internal static MethodInfo TargetMethod()
         {
@@ -32,7 +39,7 @@ namespace SereneGreenhouse.Patches
             {
                 if (tile.Properties["CustomAction"] == "Treehouse")
                 {
-                    if (bool.Parse(tile.Properties["HasGivenOfferingToday"]) is true)
+                    if (bool.Parse(tile.Properties["HasReceivedOfferingToday"]) is true)
                     {
                         Game1.drawObjectDialogue("Fruits, fruits! Come back tomorrow, forest will change!");
                     }
@@ -61,18 +68,18 @@ namespace SereneGreenhouse.Patches
                     {
                         if (!Game1.MasterPlayer.mailReceived.Contains("SG_Treehouse_Expansion_1") && who.ActiveObject.ParentSheetIndex == 268 && who.ActiveObject.Stack >= 100)
                         {
-                            AcceptOffering(who, tile);
-                            //Game1.MasterPlayer.mailReceived.Add("SG_Treehouse_Expansion_1");
+                            ModEntry.AcceptOffering(who, acceptedOfferingMessage, 100, tile);
+                            Game1.MasterPlayer.mailReceived.Add("SG_Treehouse_Expansion_1");
                         }
                         else if (!Game1.MasterPlayer.mailReceived.Contains("SG_Treehouse_Expansion_2") && who.ActiveObject.ParentSheetIndex == 417 && who.ActiveObject.Stack >= 100)
                         {
-                            AcceptOffering(who, tile);
-                            //Game1.MasterPlayer.mailReceived.Add("SG_Treehouse_Expansion_2");
+                            ModEntry.AcceptOffering(who, acceptedOfferingMessage, 100, tile);
+                            Game1.MasterPlayer.mailReceived.Add("SG_Treehouse_Expansion_2");
                         }
                         else if (!Game1.MasterPlayer.mailReceived.Contains("SG_Treehouse_Expansion_3") && who.ActiveObject.ParentSheetIndex == 454 && who.ActiveObject.Stack >= 100)
                         {
-                            AcceptOffering(who, tile);
-                            //Game1.MasterPlayer.mailReceived.Add("SG_Treehouse_Expansion_3");
+                            ModEntry.AcceptOffering(who, acceptedOfferingMessage, 100, tile);
+                            Game1.MasterPlayer.mailReceived.Add("SG_Treehouse_Expansion_3");
                         }
                         else
                         {
@@ -83,24 +90,50 @@ namespace SereneGreenhouse.Patches
                     __result = true;
                     return false;
                 }
-            return true;
-        }
+                else if (tile.Properties["CustomAction"] == "Waterhut")
+                {
+                    if (!Game1.MasterPlayer.modData.ContainsKey(ModEntry.offeringsStoredInWaterHutKey))
+                    {
+                        Game1.MasterPlayer.modData[ModEntry.offeringsStoredInWaterHutKey] = "0";
+                    }
 
-        private static void AcceptOffering(Farmer who, Tile tile)
-        {
-            Game1.drawObjectDialogue("For us? Thank you, thank you!#Come back tomorrow, forest will change!");
-            RemoveActiveItemByCount(who, 100);
+                    if (who.ActiveObject is null)
+                    {
+                        int offeringsCount = 0;
+                        if (!int.TryParse(Game1.MasterPlayer.modData[ModEntry.offeringsStoredInWaterHutKey], out offeringsCount))
+                        {
+                            monitor.Log($"Issue parsing ModData key [{ModEntry.offeringsStoredInWaterHutKey}]'s value to int", LogLevel.Trace);
+                        }
 
-            tile.Properties["HasGivenOfferingToday"] = true;
-        }
+                        if (offeringsCount == 0)
+                        {
+                            Game1.drawObjectDialogue($"A chorus of tiny voices echo from inside the hut...#Gibe us fruit! Gibe us vegetables! Feed the mighty Junimos!#If we have at least one offering in storage, we'll water the plants of this forest!");
+                        }
+                        else
+                        {
+                            Game1.drawObjectDialogue($"There are {offeringsCount} offerings stored inside. The Junimos will water the plants each morning for {offeringsCount} day(s).");
+                        }
+                    }
+                    else
+                    {
+                        // If it is a vegetable or fruit, prompt to accept the offering
+                        if (who.ActiveObject.Category == -75 || who.ActiveObject.Category == -79)
+                        {
+                            Game1.drawObjectQuestionDialogue($"Offer the {who.ActiveObject.Stack} {who.ActiveObject.DisplayName}?", offeringResponses);
 
-        private static void RemoveActiveItemByCount(Farmer farmer, int countToRemove)
-        {
-            if (farmer.CurrentItem != null && (farmer.CurrentItem.Stack -= countToRemove) <= 0)
-            {
-                farmer.removeItemFromInventory(farmer.CurrentItem);
-                farmer.showNotCarrying();
+                        }
+                        else
+                        {
+                            Game1.drawObjectDialogue("The Junimos aren't interested in that offering.");
+                        }
+                    }
+
+                    __result = true;
+                    return false;
+                }
             }
+
+            return true;
         }
     }
 }
