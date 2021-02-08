@@ -111,7 +111,7 @@ namespace SereneGreenhouse.Patches.GameLocation
                         }
                         else
                         {
-                            Game1.drawObjectDialogue($"There are {offeringsCount} offerings stored inside. The Junimos will water the plants each morning for {offeringsCount} day(s).");
+                            Game1.drawObjectDialogue($"There are {offeringsCount} offering(s) stored inside. The Junimos will water the plants each morning for {offeringsCount} day(s).");
                         }
                     }
                     else
