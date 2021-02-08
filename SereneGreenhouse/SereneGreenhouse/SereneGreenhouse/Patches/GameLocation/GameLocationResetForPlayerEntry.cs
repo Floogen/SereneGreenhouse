@@ -22,13 +22,13 @@ namespace SereneGreenhouse.Patches.GameLocation
         private static int junimoSpawnChance = 10;
         private static List<Vector2> junimoSpawnLocations = new List<Vector2>()
         {
-            new Vector2(9, 39),
+            new Vector2(9, 37),
             new Vector2(37, 31),
             new Vector2(37, 7),
             new Vector2(14, 20)
         };
 
-        private static int maxButterflySpawnPerTile = 5;
+        private static int maxButterflySpawnPerTile = 7;
         private static int butterflySpawnChance = 75;
         private static List<Vector2> butterflySpawnLocations = new List<Vector2>()
         {
@@ -43,10 +43,11 @@ namespace SereneGreenhouse.Patches.GameLocation
             new Vector2(20, 8),
             new Vector2(45, 28),
             new Vector2(6, 46),
-            new Vector2(9, 28)
+            new Vector2(9, 28),
+            new Vector2(44, 15)
         };
 
-        private static int maxFireflySpawnPerTile = 5;
+        private static int maxFireflySpawnPerTile = 6;
         private static int fireflySpawnChance = 75;
         private static List<Vector2> fireflySpawnLocations = new List<Vector2>()
         {
@@ -61,7 +62,8 @@ namespace SereneGreenhouse.Patches.GameLocation
             new Vector2(20, 8),
             new Vector2(45, 28),
             new Vector2(6, 46),
-            new Vector2(9, 28)
+            new Vector2(9, 28),
+            new Vector2(44, 15)
         };
 
         internal static MethodInfo TargetMethod()
@@ -112,14 +114,14 @@ namespace SereneGreenhouse.Patches.GameLocation
                         SpawnButterflies(__instance, tile, maxButterflySpawnPerTile);
                     }
                 }
-            }
 
-            // Spawn the Junimos
-            foreach (Vector2 tile in junimoSpawnLocations)
-            {
-                if (Game1.random.Next(100) < junimoSpawnChance)
+                // Spawn the Junimos
+                foreach (Vector2 tile in junimoSpawnLocations)
                 {
-                    SpawnJunimo(__instance, tile);
+                    if (Game1.random.Next(100) < junimoSpawnChance)
+                    {
+                        SpawnJunimo(__instance, tile);
+                    }
                 }
             }
         }
