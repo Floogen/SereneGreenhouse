@@ -53,9 +53,6 @@ namespace SereneGreenhouse
 
             // Hook into the DayStarted event
             helper.Events.GameLoop.DayStarted += OnDayStarted;
-
-            // Hook into the player warping
-            helper.Events.Player.Warped += this.OnWarped;
         }
 
         private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
@@ -139,45 +136,12 @@ namespace SereneGreenhouse
             }
         }
 
-        private void OnWarped(object sender, WarpedEventArgs e)
-        {
-            if (e.NewLocation.Name == "Greenhouse")
-            {
-                e.NewLocation.critters = new List<Critter>();
-
-                double mapArea = e.NewLocation.map.Layers[0].LayerWidth * e.NewLocation.map.Layers[0].LayerHeight;
-                double chance = Math.Max(0.15, Math.Min(0.5, mapArea / 15000.0));
-                chance = Math.Min(0.8, chance * 1.5);
-                while (Game1.random.NextDouble() < 0.8)
-                {
-                    Vector2 v = e.NewLocation.getRandomTile();
-                    if (Game1.isDarkOut())
-                    {
-                        e.NewLocation.critters.Add(new Firefly(v));
-                    }
-                    else
-                    {
-                        e.NewLocation.critters.Add(new Butterfly(v));
-                    }
-                    while (Game1.random.NextDouble() < 0.4)
-                    {
-                        if (Game1.isDarkOut())
-                        {
-                            e.NewLocation.critters.Add(new Firefly(v + new Vector2(Game1.random.Next(-2, 3), Game1.random.Next(-2, 3))));
-                        }
-                        else
-                        {
-                            e.NewLocation.critters.Add(new Butterfly(v + new Vector2(Game1.random.Next(-2, 3), Game1.random.Next(-2, 3))));
-                        }
-                    }
-                }
-            }
-        }
-
         public static void AcceptOffering(Farmer who, string message, int countToRemove)
         {
             Game1.drawObjectDialogue(message);
             RemoveActiveItemByCount(who, countToRemove);
+
+            Game1.playSound("newRecord");
         }
 
         public static void AcceptOffering(Farmer who, string message, int countToRemove, Tile tile)
