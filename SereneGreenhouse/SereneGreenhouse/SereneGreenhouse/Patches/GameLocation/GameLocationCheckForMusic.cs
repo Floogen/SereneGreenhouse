@@ -9,7 +9,7 @@ using xTile.Dimensions;
 using xTile.Tiles;
 using System.Collections.Generic;
 
-namespace SereneGreenhouse.Patches
+namespace SereneGreenhouse.Patches.GameLocation
 {
     [HarmonyPatch]
     public class GameLocationCheckForMusic
@@ -21,7 +21,7 @@ namespace SereneGreenhouse.Patches
             return AccessTools.Method(typeof(StardewValley.GameLocation), nameof(StardewValley.GameLocation.checkForMusic));
         }
 
-        internal static bool Prefix(GameLocation __instance, GameTime time)
+        internal static bool Prefix(StardewValley.GameLocation __instance, GameTime time)
         {
             if (__instance.Name != "Greenhouse")
             {

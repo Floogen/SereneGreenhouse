@@ -9,7 +9,7 @@ using xTile.Dimensions;
 using xTile.Tiles;
 using System.Collections.Generic;
 
-namespace SereneGreenhouse.Patches
+namespace SereneGreenhouse.Patches.GameLocation
 {
     [HarmonyPatch]
     public class GameLocationCheckActionPatch
@@ -27,7 +27,7 @@ namespace SereneGreenhouse.Patches
             return AccessTools.Method(typeof(StardewValley.GameLocation), nameof(StardewValley.GameLocation.checkAction));
         }
 
-        internal static bool Prefix(GameLocation __instance, ref bool __result, Location tileLocation, xTile.Dimensions.Rectangle viewport, Farmer who)
+        internal static bool Prefix(StardewValley.GameLocation __instance, ref bool __result, Location tileLocation, xTile.Dimensions.Rectangle viewport, Farmer who)
         {
             if (__instance.Name != "Greenhouse")
             {

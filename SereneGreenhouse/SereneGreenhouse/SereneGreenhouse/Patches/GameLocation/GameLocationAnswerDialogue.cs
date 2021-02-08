@@ -9,7 +9,7 @@ using xTile.Dimensions;
 using xTile.Tiles;
 using System.Collections.Generic;
 
-namespace SereneGreenhouse.Patches
+namespace SereneGreenhouse.Patches.GameLocation
 {
     [HarmonyPatch]
     public class GameLocationAnswerDialogue
@@ -21,9 +21,9 @@ namespace SereneGreenhouse.Patches
             return AccessTools.Method(typeof(StardewValley.GameLocation), nameof(StardewValley.GameLocation.answerDialogue));
         }
 
-        internal static bool Prefix(GameLocation __instance, ref bool __result, Response answer)
+        internal static bool Prefix(StardewValley.GameLocation __instance, ref bool __result, Response answer)
         {
-            if (__instance.Name != "Greenhouse" || answer.responseKey is null)
+            if (__instance.Name != "Greenhouse")
             {
                 return true;
             }
