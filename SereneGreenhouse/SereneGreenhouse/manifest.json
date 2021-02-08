@@ -7,5 +7,10 @@
   "EntryDll": "SereneGreenhouse.dll",
   "MinimumApiVersion": "3.0.0",
   "UpdateKeys": [ "Nexus:????" ],
-  "Dependencies": []
+  "Dependencies": [
+     {
+      "UniqueID": "Pathoschild.ContentPatcher",
+      "IsRequired": true
+   }
+  ]
 }
