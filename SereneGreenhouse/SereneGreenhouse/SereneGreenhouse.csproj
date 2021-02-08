@@ -54,10 +54,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SereneGreenhouse\API\Interfaces\IContentPatcherAPI.cs" />
     <Compile Include="SereneGreenhouse\ModEntry.cs" />
-    <Compile Include="SereneGreenhouse\Patches\GameLocationAnswerDialogue.cs" />
-    <Compile Include="SereneGreenhouse\Patches\GameLocationCheckActionPatch.cs" />
-    <Compile Include="SereneGreenhouse\Patches\GameLocationCheckForMusic.cs" />
-    <Compile Include="SereneGreenhouse\Patches\GameLocationResetForPlayerEntry.cs" />
+    <Compile Include="SereneGreenhouse\Patches\GameLocation\GameLocationAnswerDialogue.cs" />
+    <Compile Include="SereneGreenhouse\Patches\GameLocation\GameLocationCheckActionPatch.cs" />
+    <Compile Include="SereneGreenhouse\Patches\GameLocation\GameLocationCheckForMusic.cs" />
+    <Compile Include="SereneGreenhouse\Patches\GameLocation\GameLocationResetForPlayerEntry.cs" />
+    <Compile Include="SereneGreenhouse\Patches\NPC\JunimoPatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="E:\SteamLibrary\steamapps\common\Stardew Valley\Content %28unpacked%29\AOH Maps\SereneGreenhouse.tmx">
