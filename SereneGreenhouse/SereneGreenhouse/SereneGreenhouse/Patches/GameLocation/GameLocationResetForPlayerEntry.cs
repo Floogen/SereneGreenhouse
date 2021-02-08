@@ -115,12 +115,15 @@ namespace SereneGreenhouse.Patches.GameLocation
                     }
                 }
 
-                // Spawn the Junimos
-                foreach (Vector2 tile in junimoSpawnLocations)
+                if (!Game1.isRaining)
                 {
-                    if (Game1.random.Next(100) < junimoSpawnChance)
+                    // Spawn the Junimos
+                    foreach (Vector2 tile in junimoSpawnLocations)
                     {
-                        SpawnJunimo(__instance, tile);
+                        if (Game1.random.Next(100) < junimoSpawnChance)
+                        {
+                            SpawnJunimo(__instance, tile);
+                        }
                     }
                 }
             }
