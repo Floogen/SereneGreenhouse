@@ -6,7 +6,7 @@
   "UniqueID": "PeacefulEnd.SereneGreenhouse",
   "EntryDll": "SereneGreenhouse.dll",
   "MinimumApiVersion": "3.0.0",
-  "UpdateKeys": [ "Nexus:????" ],
+  "UpdateKeys": [ "Nexus:8011" ],
   "Dependencies": [
      {
       "UniqueID": "Pathoschild.ContentPatcher",
