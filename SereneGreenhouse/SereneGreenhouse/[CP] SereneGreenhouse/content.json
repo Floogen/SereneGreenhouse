@@ -1,10 +1,14 @@
 {
 	"Format": "1.19.0",
 	"Changes": [
-    		{
+		{
 			"Action": "Load",
 			"Target": "Maps/Greenhouse",
-			"FromFile": "assets/SereneGreenhouse.tmx"
+			"FromFile": "assets/{{PeacefulEnd.SereneGreenhouse/GreenhouseStage}}.tmx",
+			"When": 
+			{
+				"HasMod": "PeacefulEnd.SereneGreenhouse"
+			}
 		},
 	]
 }
